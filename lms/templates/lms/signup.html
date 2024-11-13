@@ -1,0 +1,47 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Signup and OTP Verification</title>
+    <link rel="stylesheet" href="{% static 'css/index.css' %}">
+</head>
+<body>
+    <div class="container">
+        <div class="form-container">
+            <form id="signupForm" method="post" class="form active">
+                <h2>Signup</h2>
+                {% csrf_token %}
+                {% for frm in form %}
+                    <div class="mb-4">
+                        {{ frm.label }}
+                        {{ frm }}
+                        <span class="text-danger">{{ frm.errors }}</span>
+                    </div>
+                {% endfor %}
+                <button type="submit">Signup</button>
+                <p class="p">Already have an account? <span id="log-in">Log in</span></p>
+            </form>
+            <form id="loginForm" class="form active">
+                <h2>Login</h2>
+                <input type="email" placeholder="Email" required>
+                <input type="password" placeholder="Password" required>
+                <button type="submit">Login</button>
+                <p class="p">Create new account? <span id="sign-up">Sign-up</span></p>
+            </form>
+
+            <form id="otpForm" method="post" class="form">
+                <h2>Enter OTP</h2>
+                {% csrf_token %}
+                <label for="otp">OTP Code:</label>
+                <input type="text" name="otp" required>
+                <button type="submit">Verify OTP</button>
+                <p class="p">Didn't receive the OTP? <span id="resend-otp">Resend OTP</span></p>
+            </form>
+        </div>
+    </div>
+
+    <script src="{% static 'js/index.js' %}"></script>
+</body>
+</html>
